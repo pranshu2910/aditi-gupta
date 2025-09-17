@@ -56,9 +56,16 @@ function initScrollAnimations() {
     };
     
     const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
+                // Staggered animation for portfolio and blog items
+                if (entry.target.classList.contains('portfolio-item') || entry.target.classList.contains('blog-post')) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, index * 150);
+                } else {
+                    entry.target.classList.add('animate');
+                }
             }
         });
     }, observerOptions);
@@ -69,14 +76,14 @@ function initScrollAnimations() {
         observer.observe(el);
     });
     
-    // Timeline animation
+    // Timeline animation with enhanced stagger
     const timelineItems = document.querySelectorAll('.timeline-item');
     const timelineObserver = new IntersectionObserver(function(entries) {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
                 setTimeout(() => {
                     entry.target.classList.add('animate');
-                }, index * 200);
+                }, index * 300);
             }
         });
     }, { threshold: 0.3 });
@@ -130,7 +137,9 @@ function openModal(modalId) {
         
         // Add animation
         const modalContent = modal.querySelector('.modal-content');
-        modalContent.style.animation = 'modalSlideIn 0.3s ease';
+        if (modalContent) {
+            modalContent.style.animation = 'modalSlideIn 0.3s ease';
+        }
     }
 }
 
@@ -334,6 +343,21 @@ function updateThemeIcon(theme) {
 // Smooth scrolling for navigation links
 function initSmoothScrolling() {
     const navLinks = document.querySelectorAll('a[href^="#"]');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    
+    // Add click handler to scroll indicator
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            const aboutSection = document.querySelector('#about');
+            if (aboutSection) {
+                const offsetTop = aboutSection.offsetTop - 70;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -496,3 +520,4 @@ document.addEventListener('error', function(e) {
 // Console welcome message
 console.log('%cWelcome to Aditi Sharma\'s Portfolio!', 'color: #8B4513; font-size: 16px; font-weight: bold;');
 console.log('%cBuilt with HTML, CSS, and JavaScript', 'color: #2F4F4F; font-size: 12px;');
+
