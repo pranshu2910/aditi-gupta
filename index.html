@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditi Gupta - Writer • Editor • Storyteller</title>
+    <meta name="description" content="Professional book writer and editor specializing in literary fiction and creative non-fiction. Bringing stories to life through words.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">Aditi Gupta</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#portfolio" class="nav-link">Works</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <div class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="vintage-texture"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">Aditi Gupta</h1>
+            <p class="hero-subtitle fade-in">Writer • Editor • Storyteller</p>
+            <div class="hero-buttons fade-in">
+                <a href="#portfolio" class="btn btn-primary">Read My Work</a>
+                <a href="#contact" class="btn btn-secondary">Contact Me</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-intro">
+                        I am a passionate writer and editor with over a decade of experience in the literary world. 
+                        My journey began with a love for words and has evolved into a career dedicated to bringing 
+                        stories to life and helping other writers refine their craft.
+                    </p>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Journey as a Writer</h3>
+                            <p>From my first published short story in 2012 to my latest novel, I've explored themes of human connection, identity, and the power of storytelling. My work has been featured in literary magazines and anthologies.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Editing Philosophy</h3>
+                            <p>I believe in preserving the author's voice while enhancing clarity and impact. My editing approach focuses on structure, character development, and narrative flow, ensuring each story reaches its full potential.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Inspirations</h3>
+                            <p>Inspired by authors like Virginia Woolf, Gabriel García Márquez, and contemporary voices, I draw from diverse literary traditions to create authentic, compelling narratives that resonate with readers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">My Works</h2>
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="books">Books</button>
+                <button class="filter-btn" data-filter="edited">Edited Works</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="books" data-aos="fade-up">
+                    <div class="portfolio-image">
+                        <div class="book-cover book-cover-1">
+                            <div class="book-title">The Silent Pages</div>
+                            <div class="book-author">Aditi Gupta</div>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-btn" onclick="openModal('modal1')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>The Silent Pages</h3>
+                        <p>Literary Fiction</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="books" data-aos="fade-up">
+                    <div class="portfolio-image">
+                        <div class="book-cover book-cover-2">
+                            <div class="book-title">Words in Motion</div>
+                            <div class="book-author">Aditi Gupta</div>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-btn" onclick="openModal('modal2')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Words in Motion</h3>
+                        <p>Creative Non-fiction</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="edited" data-aos="fade-up">
+                    <div class="portfolio-image">
+                        <div class="book-cover book-cover-3">
+                            <div class="book-title">Voices of Tomorrow</div>
+                            <div class="book-author">Edited by Aditi Gupta</div>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-btn" onclick="openModal('modal3')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Voices of Tomorrow</h3>
+                        <p>Anthology (Editor)</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="books" data-aos="fade-up">
+                    <div class="portfolio-image">
+                        <div class="book-cover book-cover-4">
+                            <div class="book-title">The Editor's Eye</div>
+                            <div class="book-author">Aditi Gupta</div>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-btn" onclick="openModal('modal4')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>The Editor's Eye</h3>
+                        <p>Memoir</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="edited" data-aos="fade-up">
+                    <div class="portfolio-image">
+                        <div class="book-cover book-cover-5">
+                            <div class="book-title">Literary Quarterly</div>
+                            <div class="book-author">Editor: Aditi Gupta</div>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-btn" onclick="openModal('modal5')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Literary Quarterly</h3>
+                        <p>Journal (Editor)</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="books" data-aos="fade-up">
+                    <div class="portfolio-image">
+                        <div class="book-cover book-cover-6">
+                            <div class="book-title">Fragments of Light</div>
+                            <div class="book-author">Aditi Gupta</div>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-btn" onclick="openModal('modal6')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Fragments of Light</h3>
+                        <p>Short Story Collection</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog">
+        <div class="container">
+            <h2 class="section-title">Latest Thoughts</h2>
+            <div class="blog-grid">
+                <article class="blog-post" data-aos="fade-up">
+                    <div class="blog-image">
+                        <div class="blog-placeholder blog-placeholder-1">
+                            <i class="fas fa-pen-fancy"></i>
+                            <span>Writing Process</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">March 15, 2024</span>
+                            <span class="blog-category">Writing</span>
+                        </div>
+                        <h3 class="blog-title">The Art of Finding Your Voice</h3>
+                        <p class="blog-excerpt">Discovering your unique voice as a writer is a journey of self-exploration and experimentation...</p>
+                        <a href="#" class="blog-link">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-post" data-aos="fade-up">
+                    <div class="blog-image">
+                        <div class="blog-placeholder blog-placeholder-2">
+                            <i class="fas fa-edit"></i>
+                            <span>Editing Tips</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">March 8, 2024</span>
+                            <span class="blog-category">Editing</span>
+                        </div>
+                        <h3 class="blog-title">Five Essential Editing Techniques</h3>
+                        <p class="blog-excerpt">Master these fundamental editing techniques to transform your first draft into a polished manuscript...</p>
+                        <a href="#" class="blog-link">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-post" data-aos="fade-up">
+                    <div class="blog-image">
+                        <div class="blog-placeholder blog-placeholder-3">
+                            <i class="fas fa-book-open"></i>
+                            <span>Literary Inspiration</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">March 1, 2024</span>
+                            <span class="blog-category">Inspiration</span>
+                        </div>
+                        <h3 class="blog-title">Books That Changed My Perspective</h3>
+                        <p class="blog-excerpt">A personal reflection on the books that have shaped my understanding of storytelling and human nature...</p>
+                        <a href="#" class="blog-link">Read More</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Work Together</h3>
+                    <p>Whether you're looking for editorial services, collaboration on a project, or just want to discuss literature, I'd love to hear from you.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>aditi.Gupta@email.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>New York, NY</span>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-medium"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-goodreads"></i></a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        <span class="error-message" id="message-error"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Aditi Gupta. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#portfolio">Works</a>
+                    <a href="#blog">Blog</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Portfolio Modals -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-book-cover modal-book-cover-1">
+                    <div class="book-title">The Silent Pages</div>
+                    <div class="book-author">Aditi Gupta</div>
+                </div>
+                <div class="modal-info">
+                    <h2>The Silent Pages</h2>
+                    <p class="modal-genre">Literary Fiction</p>
+                    <p class="modal-description">
+                        A poignant exploration of memory, loss, and the power of words. This novel follows the journey of a retired librarian who discovers a collection of unpublished manuscripts that reveal the hidden stories of her community.
+                    </p>
+                    <div class="modal-details">
+                        <p><strong>Published:</strong> 2023</p>
+                        <p><strong>Pages:</strong> 320</p>
+                        <p><strong>Publisher:</strong> Literary Press</p>
+                    </div>
+                    <div class="modal-links">
+                        <a href="#" class="btn btn-primary">Read Excerpt</a>
+                        <a href="#" class="btn btn-secondary">Purchase</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-book-cover modal-book-cover-2">
+                    <div class="book-title">Words in Motion</div>
+                    <div class="book-author">Aditi Gupta</div>
+                </div>
+                <div class="modal-info">
+                    <h2>Words in Motion</h2>
+                    <p class="modal-genre">Creative Non-fiction</p>
+                    <p class="modal-description">
+                        A collection of essays that examine the intersection of language, culture, and identity. Through personal narratives and cultural analysis, this work explores how words shape our understanding of the world.
+                    </p>
+                    <div class="modal-details">
+                        <p><strong>Published:</strong> 2022</p>
+                        <p><strong>Pages:</strong> 256</p>
+                        <p><strong>Publisher:</strong> Creative Press</p>
+                    </div>
+                    <div class="modal-links">
+                        <a href="#" class="btn btn-primary">Read Excerpt</a>
+                        <a href="#" class="btn btn-secondary">Purchase</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-book-cover modal-book-cover-3">
+                    <div class="book-title">Voices of Tomorrow</div>
+                    <div class="book-author">Edited by Aditi Gupta</div>
+                </div>
+                <div class="modal-info">
+                    <h2>Voices of Tomorrow</h2>
+                    <p class="modal-genre">Anthology (Editor)</p>
+                    <p class="modal-description">
+                        A curated collection of emerging voices in contemporary literature. This anthology showcases diverse perspectives and innovative storytelling techniques from writers around the world.
+                    </p>
+                    <div class="modal-details">
+                        <p><strong>Published:</strong> 2023</p>
+                        <p><strong>Contributors:</strong> 15 authors</p>
+                        <p><strong>Publisher:</strong> New Voices Press</p>
+                    </div>
+                    <div class="modal-links">
+                        <a href="#" class="btn btn-primary">Read Excerpt</a>
+                        <a href="#" class="btn btn-secondary">Purchase</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-book-cover modal-book-cover-4">
+                    <div class="book-title">The Editor's Eye</div>
+                    <div class="book-author">Aditi Gupta</div>
+                </div>
+                <div class="modal-info">
+                    <h2>The Editor's Eye</h2>
+                    <p class="modal-genre">Memoir</p>
+                    <p class="modal-description">
+                        A behind-the-scenes look at the world of literary editing. This memoir shares insights from years of working with authors and the transformative power of the editorial process.
+                    </p>
+                    <div class="modal-details">
+                        <p><strong>Published:</strong> 2024</p>
+                        <p><strong>Pages:</strong> 280</p>
+                        <p><strong>Publisher:</strong> Professional Press</p>
+                    </div>
+                    <div class="modal-links">
+                        <a href="#" class="btn btn-primary">Read Excerpt</a>
+                        <a href="#" class="btn btn-secondary">Purchase</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-book-cover modal-book-cover-5">
+                    <div class="book-title">Literary Quarterly</div>
+                    <div class="book-author">Editor: Aditi Gupta</div>
+                </div>
+                <div class="modal-info">
+                    <h2>Literary Quarterly</h2>
+                    <p class="modal-genre">Journal (Editor)</p>
+                    <p class="modal-description">
+                        A prestigious literary journal featuring contemporary fiction, poetry, and essays. As editor, I curate content that represents the best of modern literary expression.
+                    </p>
+                    <div class="modal-details">
+                        <p><strong>Founded:</strong> 2020</p>
+                        <p><strong>Frequency:</strong> Quarterly</p>
+                        <p><strong>Circulation:</strong> 5,000+</p>
+                    </div>
+                    <div class="modal-links">
+                        <a href="#" class="btn btn-primary">View Latest Issue</a>
+                        <a href="#" class="btn btn-secondary">Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-book-cover modal-book-cover-6">
+                    <div class="book-title">Fragments of Light</div>
+                    <div class="book-author">Aditi Gupta</div>
+                </div>
+                <div class="modal-info">
+                    <h2>Fragments of Light</h2>
+                    <p class="modal-genre">Short Story Collection</p>
+                    <p class="modal-description">
+                        A collection of interconnected short stories that explore themes of hope, resilience, and human connection. Each story offers a glimpse into different lives and perspectives.
+                    </p>
+                    <div class="modal-details">
+                        <p><strong>Published:</strong> 2021</p>
+                        <p><strong>Stories:</strong> 12</p>
+                        <p><strong>Publisher:</strong> Short Fiction Press</p>
+                    </div>
+                    <div class="modal-links">
+                        <a href="#" class="btn btn-primary">Read Excerpt</a>
+                        <a href="#" class="btn btn-secondary">Purchase</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
