@@ -1,7 +1,211 @@
 // Portfolio Website JavaScript
 // Author: Aditi Sharma Portfolio
 
+// Typing Animation
+function initTypingAnimation() {
+    const typingElement = document.getElementById('typing-text');
+    if (!typingElement) return;
+    
+    const words = ['Writer', 'Editor', 'Storyteller'];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typeSpeed = 100;
+    
+    function type() {
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+            // Deleting characters
+            typingElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+            typeSpeed = 50; // Faster when deleting
+        } else {
+            // Typing characters
+            typingElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+            typeSpeed = 100; // Normal speed when typing
+        }
+        
+        if (!isDeleting && charIndex === currentWord.length) {
+            // Finished typing current word, wait before deleting
+            typeSpeed = 2000;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            // Finished deleting, move to next word
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            typeSpeed = 500; // Pause before starting next word
+        }
+        
+        setTimeout(type, typeSpeed);
+    }
+    
+    // Start typing animation after a short delay
+    setTimeout(type, 1000);
+}
+
+// Scroll Animations using Intersection Observer
+function initScrollAnimations() {
+    // Check if Intersection Observer is supported
+    if (!('IntersectionObserver' in window)) {
+        // Fallback: show all elements immediately
+        const animatedElements = document.querySelectorAll('.scroll-animate');
+        animatedElements.forEach(el => el.classList.add('animate-in'));
+        return;
+    }
+
+    // Create intersection observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add animation class when element comes into view
+                entry.target.classList.add('animate-in');
+                
+                // Unobserve the element after animation to improve performance
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        // Trigger animation when element is 20% visible
+        threshold: 0.2,
+        // Start animation 50px before element comes into view
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observe all elements with scroll animation classes
+    const animatedElements = document.querySelectorAll('.scroll-animate');
+    animatedElements.forEach(el => {
+        observer.observe(el);
+    });
+
+    // Special handling for staggered animations (portfolio items, blog posts)
+    const staggeredContainers = document.querySelectorAll('.portfolio-grid, .blog-grid');
+    staggeredContainers.forEach(container => {
+        const items = container.querySelectorAll('.portfolio-item, .blog-post');
+        items.forEach((item, index) => {
+            // Add staggered delay classes
+            if (index < 8) { // Limit to 8 items max for performance
+                const delayClass = `delay-${(index + 1) * 100}`;
+                item.classList.add(delayClass);
+            }
+        });
+    });
+}
+
+// Performance optimizations
+function initPerformanceOptimizations() {
+    // Lazy loading for images with intersection observer
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.1
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
+    
+    // Debounce scroll events for better performance
+    let scrollTimeout;
+    const originalScrollHandler = window.onscroll;
+    
+    window.onscroll = function() {
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(() => {
+            if (originalScrollHandler) {
+                originalScrollHandler();
+            }
+        }, 16); // ~60fps
+    };
+    
+    // Optimize animations for better performance
+    const animatedElements = document.querySelectorAll('.scroll-animate');
+    if ('IntersectionObserver' in window) {
+        const animationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        animatedElements.forEach(el => animationObserver.observe(el));
+    }
+    
+    // Preload critical resources
+    const criticalResources = [
+        'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
+    ];
+    
+    criticalResources.forEach(resource => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'style';
+        link.href = resource;
+        document.head.appendChild(link);
+    });
+    
+    // Service Worker registration for caching
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('SW registered: ', registration);
+                })
+                .catch(registrationError => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+        });
+    }
+}
+
+// Loading screen functionality
+function initLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    
+    // Hide loading screen when everything is loaded
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            // Remove from DOM after animation
+            setTimeout(() => {
+                loadingScreen.remove();
+            }, 500);
+        }, 2000); // Show for at least 2 seconds
+    });
+    
+    // Fallback: hide after 5 seconds regardless
+    setTimeout(() => {
+        if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+            loadingScreen.classList.add('hidden');
+            setTimeout(() => {
+                loadingScreen.remove();
+            }, 500);
+        }
+    }, 5000);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize performance optimizations first
+    initPerformanceOptimizations();
+    initLoadingScreen();
+    
     // Initialize all functionality
     initNavigation();
     initScrollAnimations();
@@ -10,6 +214,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initThemeToggle();
     initSmoothScrolling();
     initMobileMenu();
+    initTypingAnimation();
+    initBlogSearch();
+    initFloatingParticles();
+    initParallaxEffect();
+    initFAQ();
 });
 
 // Navigation functionality
@@ -48,50 +257,6 @@ function initNavigation() {
     });
 }
 
-// Scroll animations
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                // Staggered animation for portfolio and blog items
-                if (entry.target.classList.contains('portfolio-item') || entry.target.classList.contains('blog-post')) {
-                    setTimeout(() => {
-                        entry.target.classList.add('animate');
-                    }, index * 150);
-                } else {
-                    entry.target.classList.add('animate');
-                }
-            }
-        });
-    }, observerOptions);
-    
-    // Observe elements for animation
-    const animateElements = document.querySelectorAll('.fade-in, .timeline-item, .portfolio-item, .blog-post');
-    animateElements.forEach(el => {
-        observer.observe(el);
-    });
-    
-    // Timeline animation with enhanced stagger
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    const timelineObserver = new IntersectionObserver(function(entries) {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.classList.add('animate');
-                }, index * 300);
-            }
-        });
-    }, { threshold: 0.3 });
-    
-    timelineItems.forEach(item => {
-        timelineObserver.observe(item);
-    });
-}
 
 // Portfolio functionality
 function initPortfolio() {
@@ -130,16 +295,21 @@ function initPortfolio() {
 
 // Modal functionality
 function openModal(modalId) {
+    console.log('Attempting to open modal:', modalId);
     const modal = document.getElementById(modalId);
     if (modal) {
+        console.log('Modal found, opening...');
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
         
         // Add animation
         const modalContent = modal.querySelector('.modal-content');
         if (modalContent) {
-            modalContent.style.animation = 'modalSlideIn 0.3s ease';
+            modalContent.style.animation = 'modalSlideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         }
+        console.log('Modal opened successfully');
+    } else {
+        console.error('Modal not found:', modalId);
     }
 }
 
@@ -517,7 +687,217 @@ document.addEventListener('error', function(e) {
     }
 }, true);
 
+// Parallax Effect for Hero Background
+function initParallaxEffect() {
+    const hero = document.querySelector('.hero');
+    const animatedGradient = document.querySelector('.animated-gradient');
+    const literaryElements = document.querySelector('.literary-elements');
+    
+    if (!hero || !animatedGradient || !literaryElements) return;
+    
+    function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        const rate2 = scrolled * -0.3;
+        
+        animatedGradient.style.transform = `translateY(${rate}px)`;
+        literaryElements.style.transform = `translateY(${rate2}px)`;
+    }
+    
+    window.addEventListener('scroll', updateParallax);
+}
+
+// Floating Particles Effect
+function initFloatingParticles() {
+    const particlesContainer = document.getElementById('floating-particles');
+    if (!particlesContainer) return;
+    
+    const particleCount = 15;
+    
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random size between 2px and 8px
+        const size = Math.random() * 6 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random starting position
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        
+        // Random animation duration variation
+        const duration = 20 + Math.random() * 10;
+        particle.style.animationDuration = duration + 's';
+        
+        particlesContainer.appendChild(particle);
+        
+        // Remove particle after animation completes
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, duration * 1000);
+    }
+    
+    // Create initial particles
+    for (let i = 0; i < particleCount; i++) {
+        setTimeout(() => createParticle(), i * 1000);
+    }
+    
+    // Continuously create new particles
+    setInterval(() => {
+        if (particlesContainer.children.length < particleCount) {
+            createParticle();
+        }
+    }, 2000);
+}
+
+// FAQ Accordion Functionality
+function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all other FAQ items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            if (isActive) {
+                item.classList.remove('active');
+            } else {
+                item.classList.add('active');
+            }
+        });
+    });
+}
+
+// Blog Search and Filter Functionality
+function initBlogSearch() {
+    const searchInput = document.getElementById('blog-search');
+    const searchClear = document.getElementById('search-clear');
+    const filterButtons = document.querySelectorAll('.blog-filters .filter-btn');
+    const blogPosts = document.querySelectorAll('.blog-post');
+    const blogGrid = document.getElementById('blog-grid');
+    const noResults = document.getElementById('no-results');
+    
+    let currentFilter = 'all';
+    let currentSearchTerm = '';
+    
+    // Search functionality
+    function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        currentSearchTerm = searchTerm;
+        
+        // Show/hide clear button
+        searchClear.style.display = searchTerm ? 'block' : 'none';
+        
+        filterPosts();
+    }
+    
+    // Filter functionality
+    function filterPosts() {
+        let visibleCount = 0;
+        
+        blogPosts.forEach((post, index) => {
+            const category = post.getAttribute('data-category');
+            const tags = post.getAttribute('data-tags').toLowerCase();
+            const title = post.querySelector('.blog-title').textContent.toLowerCase();
+            const excerpt = post.querySelector('.blog-excerpt').textContent.toLowerCase();
+            
+            const matchesFilter = currentFilter === 'all' || category === currentFilter;
+            const matchesSearch = !currentSearchTerm || 
+                title.includes(currentSearchTerm) || 
+                excerpt.includes(currentSearchTerm) || 
+                tags.includes(currentSearchTerm);
+            
+            if (matchesFilter && matchesSearch) {
+                post.classList.remove('hidden');
+                post.classList.add('visible');
+                visibleCount++;
+                
+                // Add staggered animation delay
+                post.style.animationDelay = `${index * 0.1}s`;
+            } else {
+                post.classList.add('hidden');
+                post.classList.remove('visible');
+            }
+        });
+        
+        // Show/hide no results message
+        if (visibleCount === 0) {
+            noResults.classList.add('show');
+            blogGrid.style.display = 'none';
+        } else {
+            noResults.classList.remove('show');
+            blogGrid.style.display = 'grid';
+        }
+    }
+    
+    // Event listeners
+    searchInput.addEventListener('input', performSearch);
+    
+    searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        searchClear.style.display = 'none';
+        performSearch();
+        searchInput.focus();
+    });
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // Update current filter
+            currentFilter = button.getAttribute('data-filter');
+            
+            // Filter posts
+            filterPosts();
+        });
+    });
+    
+    // Clear search on Escape key
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            searchInput.value = '';
+            searchClear.style.display = 'none';
+            performSearch();
+        }
+    });
+    
+    // Initialize with all posts visible
+    filterPosts();
+}
+
+// Error handling for 404 redirects
+window.addEventListener('error', function(e) {
+    console.error('Page error:', e.error);
+});
+
+// Handle broken links
+document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'A') {
+        const href = e.target.getAttribute('href');
+        if (href && href.startsWith('http') && !href.includes(window.location.hostname)) {
+            // External link - let it open normally
+            return;
+        }
+    }
+});
+
 // Console welcome message
-console.log('%cWelcome to Aditi Sharma\'s Portfolio!', 'color: #8B4513; font-size: 16px; font-weight: bold;');
+console.log('%cWelcome to Aditi Gupta\'s Portfolio!', 'color: #8B4513; font-size: 16px; font-weight: bold;');
 console.log('%cBuilt with HTML, CSS, and JavaScript', 'color: #2F4F4F; font-size: 12px;');
+console.log('%cPress H for help, or visit /404 for a fun error page!', 'color: #CD853F; font-size: 10px;');
 
